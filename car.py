@@ -44,6 +44,13 @@ def right():
     GPIO.output(IN3,False)
     GPIO.output(IN4,False) 
 
+
+def reset():
+    GPIO.output(IN1,False)
+    GPIO.output(IN2,False)
+    GPIO.output(IN3,False)
+    GPIO.output(IN4,False)
+
 if __name__ == '__main__':
     forward()
     time.sleep(3)
