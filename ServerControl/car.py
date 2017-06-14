@@ -11,10 +11,10 @@ class Car(object):
         self.IN2 = 17
         self.IN3 = 27
         self.IN4 = 22
-        GPIO.setup(IN1,GPIO.OUT)
-        GPIO.setup(IN2,GPIO.OUT)
-        GPIO.setup(IN3,GPIO.OUT)
-        GPIO.setup(IN4,GPIO.OUT)
+        GPIO.setup(self.IN1,GPIO.OUT)
+        GPIO.setup(self.IN2,GPIO.OUT)
+        GPIO.setup(self.IN3,GPIO.OUT)
+        GPIO.setup(self.IN4,GPIO.OUT)
 
 
     def back(self):

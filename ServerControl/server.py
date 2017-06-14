@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 
 import socket
-import car
+from car import Car
 
 ip_port = ('',8888)
 server = socket.socket()
