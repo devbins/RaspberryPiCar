@@ -9,16 +9,20 @@ import java.net.Socket
 
 class App :Application(){
 
-    val GO = "1"
-    val BACK = "2"
-    val LEFT = "3"
-    val RIGHT = "4"
-    val PASUSE = "5"
-    val STOP = "6"
 
-    @JvmField
-    var socket: Socket? = null
 
+    companion object static {
+        val GO = "1"
+        val BACK = "2"
+        val LEFT = "3"
+        val RIGHT = "4"
+        val PASUSE = "5"
+        val STOP = "6"
+
+        @JvmField
+        var socket: Socket? = null
+
+    }
 
 
 

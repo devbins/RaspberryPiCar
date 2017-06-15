@@ -8,25 +8,12 @@
     tools:context="com.dev.bins.remotecontrol.ui.MainActivity">
 
 
-    <EditText
-        android:id="@+id/et_ip"
-        android:hint="@string/please_input_ip_address"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:inputType="number"
-        android:id="@+id/et_port"
-        android:hint="@string/please_input_ip_port"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_conn"
-        android:text="@string/connect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    </android.support.v7.widget.RecyclerView>
 
-    <com.dev.bins.remotecontrol.widget.ControlView
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+
 </LinearLayout>
