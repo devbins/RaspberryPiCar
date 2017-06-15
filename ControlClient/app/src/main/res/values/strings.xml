@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RemoteControl</string>
+    <string name="app_name">ControlClient</string>
     <string name="connect">connect</string>
     <string name="please_input_ip_port">input_port</string>
     <string name="please_input_ip_address">input_ip</string>
