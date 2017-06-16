@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.dev.bins.controlclient.R
 import com.dev.bins.controlclient.ui.NsdInfoAdapter.Holder
 import org.jetbrains.anko.find
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 /**
  * Created by bin on 14/06/2017.
@@ -27,6 +28,7 @@ class NsdInfoAdapter(data: List<NsdServiceInfo>) : RecyclerView.Adapter<Holder>(
 
     override fun onBindViewHolder(holder: Holder?, position: Int) {
         holder!!.nsdName.text = data.get(position).serviceName
+        holder.itemView.onClick { onClickListener!!.onclik(position) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
