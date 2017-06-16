@@ -6,7 +6,7 @@ from car import Car
 ip_port = ('',8888)
 server = socket.socket()
 server.bind(ip_port)
-server.listen(1)
+server.listen(5)
 
 GO='1'
 BACK='2'
@@ -21,7 +21,8 @@ conn,addr = server.accept()
 print '服务开启，等待连接'
 print addr
 while True:
-    data = conn.recv(1024)
+    data = str(conn.recv(1024))
+    print data
     if data == GO:
         picar.forward()
     elif data == BACK:

@@ -52,16 +52,9 @@ class Car(object):
         GPIO.cleanup()
 
 
-
 if __name__ == '__main__':
-    forward()
-    time.sleep(3)
-    back()
-    time.sleep(3)
-    left()
-    time.sleep(3)
-    right()
-    time.sleep(3)
+    car = Car()
+    car.stop()
     GPIO.cleanup()
 
 
