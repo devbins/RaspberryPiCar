@@ -1,6 +1,7 @@
 package com.dev.bins.controlclient
 
 import android.app.Application
+import java.io.OutputStream
 import java.net.Socket
 
 /**
@@ -21,7 +22,6 @@ class App :Application(){
 
         @JvmField
         var socket: Socket? = null
-
     }
 
 

@@ -25,6 +25,7 @@ class ControlView : View {
     var cx: Float = 0.toFloat()
     var cy: Float = 0.toFloat()
     var radius: Float = 0.toFloat()
+    var directionChange:OnDirectionChangeListener? = null
 
     constructor(context: Context) : super(context) {
         Log.d(ControlView::javaClass.name,"construct")
@@ -55,7 +56,9 @@ class ControlView : View {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
+        val width = MeasureSpec.getSize(widthMeasureSpec)
+        val height = MeasureSpec.getSize(heightMeasureSpec)
+        setMeasuredDimension(Math.min(width,height),Math.min(width,height))
     }
 
 
@@ -83,13 +86,9 @@ class ControlView : View {
                 print("down---${lastX}:${lastY}")
             }
             MotionEvent.ACTION_MOVE -> {
-                var x = event.x
-                var y = event.y
+                cx = event.x
+                cy = event.y
                 checkEdge()
-                cx = cx + x - lastX
-                cy = cy + y - lastY
-                lastX = x
-                lastY = y
                 print("move---${lastX}:${lastY}")
             }
             MotionEvent.ACTION_UP -> {
@@ -115,6 +114,13 @@ class ControlView : View {
         if (cy > radius * 3) {
             cy = radius * 3 - 10
         }
+    }
+
+    interface OnDirectionChangeListener{
+        fun left()
+        fun right()
+        fun up()
+        fun down()
     }
 
 }
