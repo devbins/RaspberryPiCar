@@ -23,15 +23,15 @@ print addr
 while True:
     data = conn.recv(1024)
     if data == GO:
-        picar.go
+        picar.forward()
     elif data == BACK:
-        pass
+        picar.back()
     elif data == LEFT:
-        pass
+        picar.left()
     elif data == RIGHT:
-        pass
+        picar.right()
     elif data == PAUSE:
-        pass
+        picar.pause()
     elif data == STOP:
         break 
 
