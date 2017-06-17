@@ -1,51 +1,38 @@
 package com.dev.bins.controlclient.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import com.dev.bins.controlclient.App
 import com.dev.bins.controlclient.R
+import com.dev.bins.controlclient.widget.ControlView
 import org.jetbrains.anko.doAsync
-import java.io.BufferedOutputStream
+import org.jetbrains.anko.find
 import java.io.OutputStream
 
-class ControlActivity : AppCompatActivity() {
+class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListener {
+
 
     var os: OutputStream? = null
+    var controlView: ControlView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_control)
+        controlView = find(R.id.controlView)
+        controlView!!.directionChange = this
         doAsync {
             os = App.socket!!.getOutputStream()
         }
     }
 
-
-    fun up(view:View) {
-        doAsync {
-            os!!.write("1".toByteArray())
-            os!!.flush()
-        }
-    }
-
-    fun down(view: View) {
-        doAsync {
-            os!!.write("2".toByteArray())
-            os!!.flush()
-
-        }
-    }
-
-    fun left(view: View) {
+    override fun left() {
         doAsync {
             os!!.write("3".toByteArray())
             os!!.flush()
-
         }
     }
 
-    fun right(view: View) {
+    override fun right() {
         doAsync {
             os!!.write("4".toByteArray())
             os!!.flush()
@@ -53,7 +40,22 @@ class ControlActivity : AppCompatActivity() {
         }
     }
 
-    fun stop(view: View) {
+    override fun up() {
+        doAsync {
+            os!!.write("1".toByteArray())
+            os!!.flush()
+        }
+    }
+
+    override fun down() {
+        doAsync {
+            os!!.write("2".toByteArray())
+            os!!.flush()
+
+        }
+    }
+
+    override fun pause() {
         doAsync {
             os!!.write("5".toByteArray())
             os!!.flush()

@@ -105,6 +105,7 @@ class ControlView : View {
             MotionEvent.ACTION_UP -> {
                 cx = width!!.div(2.toFloat())
                 cy = height!!.div(2.toFloat())
+                directionChange!!.pause()
             }
         }
         invalidate()
@@ -144,6 +145,7 @@ class ControlView : View {
         fun right()
         fun up()
         fun down()
+        fun pause()
     }
 
 }
