@@ -10,13 +10,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-
-    <com.dev.bins.controlclient.widget.ControlView
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
 
 
 </LinearLayout>
