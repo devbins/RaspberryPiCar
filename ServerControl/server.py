@@ -22,19 +22,20 @@ conn,addr = server.accept()
 print addr
 while True:
     data = str(conn.recv(1024))
-    print data
-    if data == GO:
-        picar.forward()
-    elif data == BACK:
-        picar.back()
-    elif data == LEFT:
-        picar.left()
-    elif data == RIGHT:
-        picar.right()
-    elif data == PAUSE:
-        picar.pause()
-    elif data == STOP:
-        break 
+    for x in data:
+        print x
+        if data == GO:
+            picar.forward()
+        elif data == BACK:
+            picar.back()
+        elif data == LEFT:
+            picar.left()
+        elif data == RIGHT:
+            picar.right()
+        elif data == PAUSE:
+            picar.pause()
+        elif data == STOP:
+            break 
 
 server.close()
 
