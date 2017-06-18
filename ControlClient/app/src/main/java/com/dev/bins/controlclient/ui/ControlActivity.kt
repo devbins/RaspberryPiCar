@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dev.bins.controlclient.App
 import com.dev.bins.controlclient.R
+import com.dev.bins.controlclient.ui.ControlActivity.static.BACK
+import com.dev.bins.controlclient.ui.ControlActivity.static.GO
 import com.dev.bins.controlclient.widget.ControlView
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -14,6 +16,8 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
 
     var os: OutputStream? = null
     var controlView: ControlView? = null
+
+    var lastOperate = PAUSE
 
     companion object static {
         val GO = "1".toByteArray()
@@ -35,40 +39,54 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
     }
 
     override fun left() {
-        doAsync {
-            os!!.write(LEFT)
-            os!!.flush()
+        if (lastOperate != LEFT) {
+            lastOperate = LEFT
+            doAsync {
+                os!!.write(LEFT)
+                os!!.flush()
+            }
         }
     }
 
     override fun right() {
-        doAsync {
-            os!!.write(RIGHT)
-            os!!.flush()
+        if (lastOperate != RIGHT) {
+            lastOperate = RIGHT
+            doAsync {
+                os!!.write(RIGHT)
+                os!!.flush()
 
+            }
         }
     }
 
     override fun up() {
-        doAsync {
-            os!!.write(GO)
-            os!!.flush()
+        if (lastOperate != GO) {
+            lastOperate = GO
+            doAsync {
+                os!!.write(GO)
+                os!!.flush()
+            }
         }
     }
 
     override fun down() {
-        doAsync {
-            os!!.write(BACK)
-            os!!.flush()
+        if (lastOperate != BACK) {
+            lastOperate = BACK
+            doAsync {
+                os!!.write(BACK)
+                os!!.flush()
 
+            }
         }
     }
 
     override fun pause() {
-        doAsync {
-            os!!.write(PAUSE)
-            os!!.flush()
-
+        if (lastOperate != PAUSE) {
+            lastOperate = PAUSE
+            doAsync {
+                os!!.write(PAUSE)
+                os!!.flush()
+            }
         }
     }
 
