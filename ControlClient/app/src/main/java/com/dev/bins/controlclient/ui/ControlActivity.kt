@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dev.bins.controlclient.App
 import com.dev.bins.controlclient.R
-import com.dev.bins.controlclient.ui.ControlActivity.static.BACK
-import com.dev.bins.controlclient.ui.ControlActivity.static.GO
 import com.dev.bins.controlclient.widget.ControlView
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -95,10 +93,10 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
         doAsync {
             os!!.write(STOP)
             os!!.flush()
+            os!!.close()
+            App.socket!!.close()
+            App.socket = null
         }
-        os!!.close()
-        App.socket!!.close()
-        App.socket = null
     }
 
 }
