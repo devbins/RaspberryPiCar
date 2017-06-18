@@ -17,8 +17,8 @@ STOP='6'
 
 picar = Car()
 
-conn,addr = server.accept()
 print '服务开启，等待连接'
+conn,addr = server.accept()
 print addr
 while True:
     data = str(conn.recv(1024))
