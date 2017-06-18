@@ -16,11 +16,11 @@ PAUSE='5'
 STOP='6'
 
 picar = Car()
-
+running = True
 print '服务开启，等待连接'
 conn,addr = server.accept()
 print addr
-while True:
+while running:
     data = str(conn.recv(1024))
     for x in data:
         print x
@@ -35,10 +35,10 @@ while True:
         elif data == PAUSE:
             picar.pause()
         elif data == STOP:
-            break 
+            running = False
 
 server.close()
 
-print "服务断开！！！"
+print "关闭连接！！！"
 
 
