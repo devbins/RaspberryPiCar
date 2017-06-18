@@ -38,5 +38,6 @@ while True:
 
 server.close()
 
+print "服务断开！！！"
 
 

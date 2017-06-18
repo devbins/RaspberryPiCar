@@ -5,10 +5,12 @@ import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import com.dev.bins.controlclient.App
 import com.dev.bins.controlclient.R
+import org.jetbrains.anko.UI
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.find
 import org.jetbrains.anko.nsdManager
@@ -33,14 +35,16 @@ class MainActivity : AppCompatActivity(), NsdInfoAdapter.ItemOnClick {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        init()
+        init()
     }
 
     fun init() {
-//        recyclerView = find(R.id.recycler)
+        recyclerView = find(R.id.recycler)
         data = ArrayList()
         adapter = NsdInfoAdapter(data!!)
         adapter!!.onClickListener = this
+        recyclerView!!.adapter = adapter
+        recyclerView!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         nsdmanager = baseContext.nsdManager
         createDiscoverListener()
         createResolverListener()
@@ -60,6 +64,7 @@ class MainActivity : AppCompatActivity(), NsdInfoAdapter.ItemOnClick {
                     App.socket = Socket(mNsdServiceInfo!!.host.hostAddress, mNsdServiceInfo!!.port)
                 }
                 startActivity(Intent(this@MainActivity, ControlActivity::class.java))
+                finish()
             }
         }
     }
@@ -86,7 +91,10 @@ class MainActivity : AppCompatActivity(), NsdInfoAdapter.ItemOnClick {
             override fun onServiceFound(nsdServiceInfo: NsdServiceInfo) {
                 //这里的nsdServiceInfo只能获取到名字,ip和端口都不能获取到,要想获取到需要调用NsdManager.resolveService方法
                 data!!.add(nsdServiceInfo)
-                adapter!!.notifyItemInserted(data!!.size - 1)
+                runOnUiThread {
+                    adapter!!.notifyItemInserted(data!!.size)
+
+                }
             }
 
             override fun onServiceLost(nsdServiceInfo: NsdServiceInfo) {

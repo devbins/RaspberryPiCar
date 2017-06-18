@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -25,24 +26,26 @@ class ControlView : View {
     var cx: Float = 0.toFloat()
     var cy: Float = 0.toFloat()
     var radius: Float = 0.toFloat()
-    var directionChange:OnDirectionChangeListener? = null
+    var center: PointF = PointF()
+    var directionChange: OnDirectionChangeListener? = null
+
 
     constructor(context: Context) : super(context) {
-        Log.d(ControlView::javaClass.name,"construct")
+        Log.d(ControlView::javaClass.name, "construct")
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        Log.d(ControlView::javaClass.name,"construct")
+        Log.d(ControlView::javaClass.name, "construct")
 
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        Log.d(ControlView::javaClass.name,"construct")
+        Log.d(ControlView::javaClass.name, "construct")
 
     }
 
     init {
-        Log.d(ControlView::javaClass.name,"init")
+        Log.d(ControlView::javaClass.name, "init")
         whitePaint = Paint()
         whitePaint.isAntiAlias = true
         whitePaint.isDither = false
@@ -58,7 +61,7 @@ class ControlView : View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
-        setMeasuredDimension(Math.min(width,height),Math.min(width,height))
+        setMeasuredDimension(Math.min(width, height), Math.min(width, height))
     }
 
 
@@ -67,7 +70,9 @@ class ControlView : View {
         width = w
         height = h
         cx = width!!.div(2.toFloat())
+        center.x = cx
         cy = height!!.div(2.toFloat())
+        center.y = cy
         radius = width!!.div(4.toFloat())
     }
 
@@ -83,44 +88,65 @@ class ControlView : View {
             MotionEvent.ACTION_DOWN -> {
                 lastX = event.x
                 lastY = event.y
-                print("down---${lastX}:${lastY}")
             }
             MotionEvent.ACTION_MOVE -> {
                 cx = event.x
                 cy = event.y
                 checkEdge()
-                print("move---${lastX}:${lastY}")
+                var angle = calculateAngle(cx, cy)
+                when (angle) {
+                    in 0..45 -> directionChange!!.right()
+                    in 45..135 -> directionChange!!.up()
+                    in 135..225 -> directionChange!!.left()
+                    in 225..315 -> directionChange!!.down()
+                    in 315..350 -> directionChange!!.right()
+                }
+
             }
             MotionEvent.ACTION_UP -> {
-                print("up")
                 cx = width!!.div(2.toFloat())
                 cy = height!!.div(2.toFloat())
+                directionChange!!.pause()
             }
         }
         invalidate()
         return true
     }
 
+    private fun calculateAngle(cx: Float, cy: Float): Int {
+        var a = cx - center.x
+        var b = cy - center.y
+        var len = Math.sqrt(a * a + b * b.toDouble())
+        var arc = Math.acos(a / len)
+        var angle = (arc * 180 / Math.PI).toInt()
+        if (cy > center.y) {
+            angle = 360 - angle
+        }
+        return angle
+
+    }
+
     private fun checkEdge() {
         if (cx < radius) {
-            cx = radius + 10
+            cx = radius
         }
         if (cx > radius * 3) {
-            cx = radius * 3 - 10
+            cx = radius * 3
         }
         if (cy < radius) {
-            cy = radius + 10
+            cy = radius
         }
         if (cy > radius * 3) {
-            cy = radius * 3 - 10
+            cy = radius * 3
         }
     }
 
-    interface OnDirectionChangeListener{
+    interface OnDirectionChangeListener {
         fun left()
         fun right()
         fun up()
         fun down()
+        fun pause()
     }
 
 }
