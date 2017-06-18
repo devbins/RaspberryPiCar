@@ -15,6 +15,15 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
     var os: OutputStream? = null
     var controlView: ControlView? = null
 
+    companion object static {
+        val GO = "1".toByteArray()
+        val BACK = "2".toByteArray()
+        val LEFT = "3".toByteArray()
+        val RIGHT = "4".toByteArray()
+        val PAUSE = "5".toByteArray()
+        val STOP = "6".toByteArray()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_control)
@@ -27,14 +36,14 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
 
     override fun left() {
         doAsync {
-            os!!.write("3".toByteArray())
+            os!!.write(LEFT)
             os!!.flush()
         }
     }
 
     override fun right() {
         doAsync {
-            os!!.write("4".toByteArray())
+            os!!.write(RIGHT)
             os!!.flush()
 
         }
@@ -42,14 +51,14 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
 
     override fun up() {
         doAsync {
-            os!!.write("1".toByteArray())
+            os!!.write(GO)
             os!!.flush()
         }
     }
 
     override fun down() {
         doAsync {
-            os!!.write("2".toByteArray())
+            os!!.write(BACK)
             os!!.flush()
 
         }
@@ -57,7 +66,7 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
 
     override fun pause() {
         doAsync {
-            os!!.write("5".toByteArray())
+            os!!.write(PAUSE)
             os!!.flush()
 
         }
@@ -66,7 +75,7 @@ class ControlActivity : AppCompatActivity(), ControlView.OnDirectionChangeListen
     override fun onDestroy() {
         super.onDestroy()
         doAsync {
-            os!!.write("6".toByteArray())
+            os!!.write(STOP)
             os!!.flush()
         }
         os!!.close()

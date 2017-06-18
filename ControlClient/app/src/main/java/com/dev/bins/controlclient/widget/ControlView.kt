@@ -29,6 +29,7 @@ class ControlView : View {
     var center: PointF = PointF()
     var directionChange: OnDirectionChangeListener? = null
 
+
     constructor(context: Context) : super(context) {
         Log.d(ControlView::javaClass.name, "construct")
     }
