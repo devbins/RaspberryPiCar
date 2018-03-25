@@ -20,26 +20,26 @@ class Car(object):
     def back(self):
         GPIO.output(self.IN1,GPIO.HIGH)
         GPIO.output(self.IN2,GPIO.LOW)
-        GPIO.output(self.IN3,GPIO.HIGH)
-        GPIO.output(self.IN4,GPIO.LOW) 
+        GPIO.output(self.IN3,GPIO.LOW)
+        GPIO.output(self.IN4,GPIO.HIGH)
 
     def forward(self):
         GPIO.output(self.IN1,GPIO.LOW)
         GPIO.output(self.IN2,GPIO.HIGH)
-        GPIO.output(self.IN3,GPIO.LOW)
-        GPIO.output(self.IN4,GPIO.HIGH) 
+        GPIO.output(self.IN3,GPIO.HIGH)
+        GPIO.output(self.IN4,GPIO.LOW)
     
     def left(self):
         GPIO.output(self.IN1,GPIO.HIGH)
-        GPIO.output(self.IN2,GPIO.LOW)
-        GPIO.output(self.IN3,False)
+        GPIO.output(self.IN2,False)
+        GPIO.output(self.IN3,GPIO.HIGH)
         GPIO.output(self.IN4,False) 
 
     def right(self):
-        GPIO.output(self.IN1,GPIO.LOW)
+        GPIO.output(self.IN1,False)
         GPIO.output(self.IN2,GPIO.HIGH)
         GPIO.output(self.IN3,False)
-        GPIO.output(self.IN4,False) 
+        GPIO.output(self.IN4,GPIO.HIGH)
 
 
     def pause(self):

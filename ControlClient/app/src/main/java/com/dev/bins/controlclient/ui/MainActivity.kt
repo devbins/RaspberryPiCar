@@ -62,9 +62,11 @@ class MainActivity : AppCompatActivity(), NsdInfoAdapter.ItemOnClick {
                 mNsdServiceInfo = nsdServiceInfo
                 bg {
                     App.socket = Socket(mNsdServiceInfo!!.host.hostAddress, mNsdServiceInfo!!.port)
+                    runOnUiThread(Runnable {
+                        startActivity(Intent(this@MainActivity, ControlActivity::class.java))
+                        finish()
+                    })
                 }
-                startActivity(Intent(this@MainActivity, ControlActivity::class.java))
-                finish()
             }
         }
     }
